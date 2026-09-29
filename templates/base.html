@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Expense Tracker</title>
+
+    <link 
+        rel="stylesheet" 
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+<nav>
+    <h2>Expense Tracker</h2>
+
+    <div>
+        <a href="{{ url_for('main.home') }}">Home</a>
+        <a href="{{ url_for('main.add_expense') }}">Add Expense</a>
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+    {% if messages %}
+
+        {% for category, message in messages %}
+
+            <div class="flash {{ category }}">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+{% endwith %}
+
+
+
+{% block content %}
+
+{% endblock %}
+
+
+</div>
+
+
+</body>
+
+</html>

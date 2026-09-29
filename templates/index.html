@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+
+<div class="stats">
+
+
+<div class="stat-card">
+
+<h3>Total Spent</h3>
+
+<p>
+₦{{ statistics.total }}
+</p>
+
+</div>
+
+
+
+<div class="stat-card">
+
+<h3>Transactions</h3>
+
+<p>
+{{ statistics.count }}
+</p>
+
+</div>
+
+
+
+<div class="stat-card">
+
+<h3>Highest Expense</h3>
+
+<p>
+₦{{ statistics.highest }}
+</p>
+
+</div>
+
+
+</div>
+
+
+<h1>My Expenses</h1>
+
+
+<div class="expense-card">
+
+
+{% for expense in expenses %}
+
+
+<div class="card">
+
+
+<h3>{{ expense.category }}</h3>
+
+
+<p>
+<strong>Item:</strong>
+{{ expense.item }}
+</p>
+
+
+<p>
+<strong>Price:</strong>
+₦{{ expense.price }}
+</p>
+
+
+<p>
+<strong>Date:</strong>
+{{ expense.date }}
+</p>
+
+
+<div class="actions">
+
+<a class="edit"
+href="{{ url_for('main.edit_expense', id=expense.id) }}">
+Edit
+</a>
+
+
+<a class="delete"
+href="{{ url_for('main.delete_expense', id=expense.id) }}">
+Delete
+</a>
+
+
+</div>
+
+
+</div>
+
+
+{% endfor %}
+
+
+</div>
+
+
+{% endblock %}
