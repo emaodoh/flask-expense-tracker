@@ -1,8 +1,7 @@
 
 from . import models
-from .database import create_table
 from .expense_repo import create_expense, get_all_expenses
-
+from datetime import datetime
 
 
 
@@ -17,12 +16,12 @@ def expense_statistics():
         }
 
 
-    total = sum(expense.price for expense in expenses)
+    total = sum(expense.amount for expense in expenses)
 
     count = len(expenses)
 
     highest = max(
-        expense.price 
+        expense.amount 
         for expense in expenses
     )
 
@@ -44,11 +43,14 @@ def get_expense_by_id(id):
     return None
 
         
-def add_expense(category, item, date, price):
-    create_expense(category, item, price)
+def add_expense(category, item, date, amount):
+    create_expense(category, item, amount,date)
     
     
-    
+def date_convert(date):
+    date_string = date
 
+    pure_date = datetime.strptime(date_string, "%Y-%m-%d").date()
+    return pure_date
 
 

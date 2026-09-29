@@ -1,89 +1,33 @@
-from .database import get_connection
+
 from .models import Expense
+from .extensions import db
+from . import services
 
 
-def create_expense(category,item,amount):
-    connection = get_connection()
-    print(connection.execute("PRAGMA database_list").fetchall())
-    cursor = connection.cursor()
+def create_expense(category,item,amount,date):
+    expense = Expense(category=category,item=item,amount=amount,expense_date=services.date_convert(date))
 
-    cursor.execute(
-        """
-        INSERT INTO expenses (category, item, amount)
-        VALUES (?,?,?)
-        """,
-
-        (category, item, amount)
-    )
-
-    connection.commit()
-    connection.close()
-
-
+    db.session.add(expense)
+    db.session.commit()
 def get_all_expenses():
-
-    connection = get_connection()
-
-    cursor = connection.cursor()
-
-    cursor.execute("SELECT * FROM expenses")
-
-    rows = cursor.fetchall()
-
-    expenses = []
-
-    for row in rows:
-        expense = Expense(row[0], row[1], row[2], row[7], row[4])
-        expenses.append(expense)
+    return Expense.query.all()
 
 
-    connection.close()
+def edit_expense(category, item, expense_date, price,id):
+    expense = get_expense_by_id(id)
 
-    return expenses
+    expense.item = item
+    expense.category = category
+    expense.expense_date = services.date_convert(expense_date)
+    expense.amount = price
 
-
-def edit_expense(category, item, expense_date, amount,id):
-    connection = get_connection()
-
-    cursor = connection.cursor()
-
-    cursor.execute(
-    """
-    UPDATE expenses
-    SET category =?, item = ?, expense_date = ?, amount =?
-    WHERE id =?;
-    """,
-
-    (category, item, expense_date, amount, id),
-
-    )
-
-    connection.commit()
-    connection.close()
+    db.session.commit()
 
 def get_expense_by_id(id):
-    connection = get_connection()
-
-    cursor = connection.cursor()
-
-    cursor.execute("SELECT * FROM expenses WHERE id =?", (id,))
-
-    row = cursor.fetchone()
-
-    if row == None:
-        return None
-    expense = Expense(row[0], row[1], row[2], row[7], row[4])
-    connection.close()
-
-    return expense
+    return db.session.get(Expense, id)
 
 
 def delete_expense(id):
-    connection = get_connection()
-
-    cursor = connection.cursor()
-
-    cursor.execute("DELETE FROM expenses WHERE id = ?", (id,))
-
-    connection.commit()
-    connection.close()
+    expense = get_expense_by_id(id)
+    db.session.delete(expense)
+    db.session.commit()

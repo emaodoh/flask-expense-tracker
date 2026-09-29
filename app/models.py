@@ -1,47 +1,16 @@
-class Expense:
-    def __init__(self, id, category, item, date, price):
-        self.id = id
-        self.category = category
-        self.item = item
-        self.date = date
-        self.price = price
+from .extensions import db
+
+class Expense(db.Model):
+    __tablename__ = "expenses"
+
+    id = db.Column(db.Integer, primary_key=True)
+    category = db.Column(db.String(100), nullable=False)
+    item = db.Column(db.String(100), nullable=False)
+    expense_date = db.Column(db.Date, nullable=False)
+    amount = db.Column(db.Float, nullable=False)
 
     def __repr__(self):
         return (
-            
-            f"Expense(id={self.id!r}, "
-            f"category= {self.category!r}"
-            f"item={self.item!r}, "
-            f"date={self.date!r}, "
-            f"price={self.price!r})"
+            f"<Expense {self.id}: "
+            f"{self.category} - {self.item}>"
         )
-
-    def __str__(self):
-        return (
-            f"id: {self.id} | "
-            f"Category: {self.category} | "
-            f"Item: {self.item} | "
-            f"Date: {self.date} | "
-            f"Price: ₦{self.price}"
-        )
-
-    def __eq__(self, other):
-        if not isinstance(other, Expense):
-            return NotImplemented
-
-        return (
-            self.id == other.id
-            and self.category == other.category
-            and self.item == other.item
-            and self.date == other.date
-            and self.price == other.price
-        )
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "category": self.category,
-            "item": self.item,
-            "date": self.date,
-            "price": self.price,
-        }

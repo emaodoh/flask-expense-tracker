@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from config import DevelopmentConfig
+from .extensions import db
 
 
 
@@ -13,7 +14,6 @@ def create_app():
 
     app.config.from_object(DevelopmentConfig)
 
-
     @app.errorhandler(404)
     def page_not_found(error):
         return render_template("404.html"), 404
@@ -24,9 +24,10 @@ def create_app():
         return render_template("500.html"), 500
 
 
+    db.init_app(app)
+
     from .routes import main
     app.register_blueprint(main)
 
 
     return app
-
