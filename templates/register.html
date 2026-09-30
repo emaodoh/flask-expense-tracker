@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Expense Tracker</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="left-panel">
+        <h1>Expense Tracker</h1>
+
+        <p class="description">
+            Track your daily expenses, understand your spending habits,
+            and make smarter financial decisions.
+        </p>
+
+        <div class="features">
+            <div class="feature">
+                ✓ Track daily expenses
+            </div>
+
+            <div class="feature">
+                ✓ Organize spending by category
+            </div>
+
+            <div class="feature">
+                ✓ View spending history
+            </div>
+
+            <div class="feature">
+                ✓ Build better financial habits
+            </div>
+        </div>
+    </div>
+
+    <div class="right-panel">
+
+        <h2>Create Account</h2>
+        <p class="subtitle">
+            Join Expense Tracker and start managing your finances today.
+        </p>
+
+        <form method="POST">
+
+            <div class="form-group">
+                <label>Username</label>
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Enter your username"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Create a password"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input
+                    type="password"
+                    name="confirm_password"
+                    placeholder="Confirm your password"
+                    required
+                >
+            </div>
+
+            <button type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+        <p class="login-link">
+            Already have an account?
+
+            <a href="{{ url_for('main.login') }}">
+                Login
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+```

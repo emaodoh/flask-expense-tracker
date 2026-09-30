@@ -1,6 +1,8 @@
 from .extensions import db
+from datetime import datetime
 
 class Expense(db.Model):
+
     __tablename__ = "expenses"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -14,3 +16,13 @@ class Expense(db.Model):
             f"<Expense {self.id}: "
             f"{self.category} - {self.item}>"
         )
+
+
+class User(db.Model):
+    __tablename__ = "users"
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), unique=True, nullable=False)
+    email = db.Column(db.String(150), unique=True, nullable=False)
+    password_hash = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)

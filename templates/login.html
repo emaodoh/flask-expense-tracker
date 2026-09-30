@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Expense Tracker</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="left-panel">
+
+        <h1>Expense Tracker</h1>
+
+        <p class="description">
+            Welcome back! Sign in to continue tracking your expenses,
+            monitor your spending, and stay in control of your finances.
+        </p>
+
+        <div class="features">
+
+            <div class="feature">
+                ✓ Secure account authentication
+            </div>
+
+            <div class="feature">
+                ✓ Access your personal expenses
+            </div>
+
+            <div class="feature">
+                ✓ View spending statistics
+            </div>
+
+            <div class="feature">
+                ✓ Continue building better financial habits
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="right-panel">
+
+        <h2>Welcome Back</h2>
+
+        <p class="subtitle">
+            Login to your Expense Tracker account.
+        </p>
+
+        <form method="POST">
+
+            <div class="form-group">
+                <label>Username or Email</label>
+
+                <input
+                    type="text"
+                    name="login"
+                    placeholder="Enter your username or email"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+            </div>
+
+            <div class="options">
+
+                <label class="remember">
+
+                    <input type="checkbox" name="remember">
+
+                    Remember me
+
+                </label>
+
+                <a href="#" class="forgot-password">
+                    Forgot Password?
+                </a>
+
+            </div>
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
+        <p class="register-link">
+
+            Don't have an account?
+
+            <a href="{{ url_for('main.register') }}">
+                Create one
+            </a>
+
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+

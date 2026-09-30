@@ -31,3 +31,4 @@ def delete_expense(id):
     expense = get_expense_by_id(id)
     db.session.delete(expense)
     db.session.commit()
+
