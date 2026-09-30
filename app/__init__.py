@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from config import DevelopmentConfig
-from .extensions import db
+from .extensions import db,migrate
 
 
 
@@ -25,6 +25,7 @@ def create_app():
 
 
     db.init_app(app)
+    migrate.init_app(app, db)
 
     from .routes import main
     app.register_blueprint(main)
