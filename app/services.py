@@ -6,8 +6,9 @@ from datetime import datetime
 
 
 
-def expense_statistics():
-    expenses = get_all_expenses()
+def expense_statistics(user_id):
+    expenses = get_all_expenses(user_id)
+    print(expenses)
     if not expenses:
         return {
             "total": 0,
@@ -33,8 +34,8 @@ def expense_statistics():
     }
 
 
-def get_expense_by_id(id):
-    expenses = get_all_expenses()
+def get_expense_by_id(id, user_id):
+    expenses = get_all_expenses(user_id)
     for expense in expenses:
 
         if expense.id == id:
@@ -43,8 +44,8 @@ def get_expense_by_id(id):
     return None
 
         
-def add_expense(category, item, date, amount):
-    create_expense(category, item, amount,date)
+def add_expense(user_id,category, item, date, amount):
+    create_expense(user_id,category, item, amount,date)
     
     
 def date_convert(date):

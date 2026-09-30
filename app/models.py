@@ -10,6 +10,12 @@ class Expense(db.Model):
     item = db.Column(db.String(100), nullable=False)
     expense_date = db.Column(db.Date, nullable=False)
     amount = db.Column(db.Float, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    user = db.relationship(
+    "User",
+    back_populates="expenses"
+)
+
 
     def __repr__(self):
         return (
@@ -26,3 +32,7 @@ class User(db.Model):
     email = db.Column(db.String(150), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    expenses = db.relationship(
+    "Expense",
+    back_populates="user"
+)

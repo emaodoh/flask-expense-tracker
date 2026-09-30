@@ -14,8 +14,8 @@ main = Blueprint("main", __name__)
 @login_required
 def home():
     
-    expenses = expense_repo.get_all_expenses()
-    statistics = services.expense_statistics()
+    expenses = expense_repo.get_all_expenses(session["user_id"])
+    statistics = services.expense_statistics(session["user_id"])
 
     return render_template(
         "index.html",
@@ -26,7 +26,7 @@ def home():
 @main.route("/edit_expense/<int:id>", methods=["GET", "POST"])
 @login_required
 def edit_expense(id):
-    expense = expense_repo.get_expense_by_id(id)
+    expense = expense_repo.get_expense_by_id(id,session["user_id"])
     if expense is None:
         abort(404)
         
@@ -42,7 +42,7 @@ def edit_expense(id):
             category = request.form["category"]
             amount = float (request.form["price"])
             item = request.form["item"]
-            expense_repo.edit_expense(category, item, expense_date, amount,id)
+            expense_repo.edit_expense(session["user_id"],category, item, expense_date, amount,id)
             
         
             
@@ -61,7 +61,7 @@ def edit_expense(id):
 @login_required
 def delete_expense(id):
     
-    expense_repo.delete_expense(id)
+    expense_repo.delete_expense(id,session["user_id"])
    
 
     flash("Expenses deleted successfully")
@@ -71,7 +71,6 @@ def delete_expense(id):
 @main.route("/add_expense", methods=["GET", "POST"])
 @login_required
 def add_expense():
-    expenses = expense_repo.get_all_expenses()
     if request.method == "POST":
 
         category = request.form["category"]
@@ -80,7 +79,7 @@ def add_expense():
         date = str(request.form["date"])
         
 
-        services.add_expense(category, item, date, price)
+        services.add_expense(session["user_id"],category, item, date, price)
 
         
 

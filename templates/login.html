@@ -7,8 +7,8 @@
     <title>Login | Expense Tracker</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
-</head>
-<body>
+
+
 
 <div class="container">
 
@@ -51,6 +51,21 @@
             Login to your Expense Tracker account.
         </p>
 
+{% with messages = get_flashed_messages(with_categories=true) %}
+
+    {% if messages %}
+
+        {% for category, message in messages %}
+
+            <div class="flash {{ category }}">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+{% endwith %}
         <form method="POST">
 
             <div class="form-group">
