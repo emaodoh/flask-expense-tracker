@@ -1,108 +1,103 @@
 {% extends "base.html" %}
 
-
 {% block content %}
 
+<section class="dashboard">
 
+    <div class="page-header">
+        <div>
+            <h1>My Expenses</h1>
+            <p>Track and manage all of your spending in one place.</p>
+        </div>
+    </div>
 
-<div class="stats">
+    <div class="stats">
 
+        <div class="stat-card">
+            <h3>Total Spent</h3>
+            <p>₦{{ statistics.total }}</p>
+        </div>
 
-<div class="stat-card">
+        <div class="stat-card">
+            <h3>Transactions</h3>
+            <p>{{ statistics.count }}</p>
+        </div>
 
-<h3>Total Spent</h3>
+        <div class="stat-card">
+            <h3>Highest Expense</h3>
+            <p>₦{{ statistics.highest }}</p>
+        </div>
 
-<p>
-₦{{ statistics.total }}
-</p>
+    </div>
 
-</div>
+    {% if expenses %}
 
+    <div class="expense-card">
 
+        {% for expense in expenses %}
 
-<div class="stat-card">
+        <div class="card">
 
-<h3>Transactions</h3>
+            <div class="card-header">
+                <h3>{{ expense.category }}</h3>
+            </div>
 
-<p>
-{{ statistics.count }}
-</p>
+            <div class="card-body">
 
-</div>
+                <p>
+                    <strong>Item:</strong>
+                    {{ expense.item }}
+                </p>
 
+                <p>
+                    <strong>Price:</strong>
+                    ₦{{ expense.amount }}
+                </p>
 
+                <p>
+                    <strong>Date:</strong>
+                    {{ expense.expense_date }}
+                </p>
 
-<div class="stat-card">
+            </div>
 
-<h3>Highest Expense</h3>
+            <div class="actions">
 
-<p>
-₦{{ statistics.highest }}
-</p>
+                <a
+                    class="edit"
+                    href="{{ url_for('main.edit_expense', id=expense.id) }}">
+                    Edit
+                </a>
 
-</div>
+                <a
+                    class="delete"
+                    href="{{ url_for('main.delete_expense', id=expense.id) }}">
+                    Delete
+                </a>
 
+            </div>
 
-</div>
+        </div>
 
+        {% endfor %}
 
-<h1>My Expenses</h1>
+    </div>
 
+    {% else %}
 
-<div class="expense-card">
+    <div class="empty-state">
 
+        <h2>No expenses yet</h2>
 
-{% for expense in expenses %}
+        <p>
+            You haven't added any expenses yet.
+            Start tracking your spending by creating your first expense.
+        </p>
 
+    </div>
 
-<div class="card">
+    {% endif %}
 
-
-<h3>{{ expense.category }}</h3>
-
-
-<p>
-<strong>Item:</strong>
-{{ expense.item }}
-</p>
-
-
-<p>
-<strong>Price:</strong>
-₦{{ expense.amount }}
-</p>
-
-
-<p>
-<strong>Date:</strong>
-{{ expense.expense_date }}
-</p>
-
-
-<div class="actions">
-
-<a class="edit"
-href="{{ url_for('main.edit_expense', id=expense.id) }}">
-Edit
-</a>
-
-
-<a class="delete"
-href="{{ url_for('main.delete_expense', id=expense.id) }}">
-Delete
-</a>
-
-
-</div>
-
-
-</div>
-
-
-{% endfor %}
-
-
-</div>
-
+</section>
 
 {% endblock %}

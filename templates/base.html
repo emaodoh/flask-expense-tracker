@@ -1,58 +1,69 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Expense Tracker</title>
 
-    <link 
-        rel="stylesheet" 
-        href="{{ url_for('static', filename='style.css') }}"
-    >
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 
 <body>
 
-<nav>
-    <h2>Expense Tracker</h2>
+    <nav>
 
-    <div>
-        <a href="{{ url_for('main.home') }}">Home</a>
-        <a href="{{ url_for('main.add_expense') }}">Add Expense</a>
-    </div>
+        <div class="logo">
 
-</nav>
+            <h2>💰 Expense Tracker</h2>
 
+        </div>
 
-<div class="container">
+        <div class="nav-links">
 
+            <a href="{{ url_for('main.home') }}">
+                Dashboard
+            </a>
 
-{% with messages = get_flashed_messages(with_categories=true) %}
+            <a href="{{ url_for('main.add_expense') }}">
+                Add Expense
+            </a>
 
-    {% if messages %}
+        </div>
 
-        {% for category, message in messages %}
-
-            <div class="flash {{ category }}">
-                {{ message }}
-            </div>
-
-        {% endfor %}
-
-    {% endif %}
-
-{% endwith %}
+    </nav>
 
 
+    <main class="container">
 
-{% block content %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
 
-{% endblock %}
+            {% if messages %}
 
+                {% for category, message in messages %}
 
-</div>
+                    <div class="flash {{ category }}">
+                        {{ message }}
+                    </div>
 
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
 
 </body>
 
