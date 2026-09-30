@@ -1,28 +1,12 @@
 import sqlite3
 
-DATABASE = "expenses.db"
+conn = sqlite3.connect("expenses.db")
+cursor = conn.cursor()
 
-def get_connection():
-    connection = sqlite3.connect(DATABASE)
-    return connection
+cursor.execute("PRAGMA table_info(expenses)")
+print(cursor.fetchall())
 
+cursor.execute("SELECT * FROM expenses")
+print(cursor.fetchall())
 
-
-
-def get_all_expenses():
-    connection = get_connection()
-
-    cursor = connection.cursor()
-
-    cursor.execute("SELECT * FROM expenses")
-
-    expenses = cursor.fetchall()
-
-    connection.close()
-
-    return expenses
-
-db = get_all_expenses()
-
-for item in db:
-    print(item)
+conn.close()

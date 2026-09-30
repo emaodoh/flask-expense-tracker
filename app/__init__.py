@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from config import DevelopmentConfig
 from .extensions import db,migrate
-
+from .models import Expense
 
 
 def create_app():
