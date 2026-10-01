@@ -3,8 +3,9 @@ from .models import Expense
 from . import services
 from .validator import validate_registration
 from . import expense_repo 
-from .user_repo import create_user,validate_user
+from .user_repo import create_user,validate_user,get_all_user_expenses
 from .decorators import login_required
+from .services import get_expense_by_id
 
 main = Blueprint("main", __name__)
 
@@ -14,7 +15,7 @@ main = Blueprint("main", __name__)
 @login_required
 def home():
     
-    expenses = expense_repo.get_all_expenses(session["user_id"])
+    expenses = get_all_user_expenses(session["user_id"])
     statistics = services.expense_statistics(session["user_id"])
 
     return render_template(
@@ -26,7 +27,7 @@ def home():
 @main.route("/edit_expense/<int:id>", methods=["GET", "POST"])
 @login_required
 def edit_expense(id):
-    expense = expense_repo.get_expense_by_id(id,session["user_id"])
+    expense = get_expense_by_id(id,session["user_id"])
     if expense is None:
         abort(404)
         
@@ -145,3 +146,5 @@ def logout():
     flash("You have been logged out successfully.", "success")
 
     return redirect(url_for("main.login"))
+
+    

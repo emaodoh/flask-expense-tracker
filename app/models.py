@@ -14,7 +14,18 @@ class Expense(db.Model):
     user = db.relationship(
     "User",
     back_populates="expenses"
-)
+    )
+    def to_dict(self):
+        return {
+            "id":self.id,
+            "category":self.category,
+            "item":self.item,
+            "expense_date":self.expense_date.isoformat(),
+            "amount":self.amount
+        }
+
+
+
 
 
     def __repr__(self):

@@ -1,13 +1,13 @@
 
 from . import models
-from .expense_repo import create_expense, get_all_expenses
+from .user_repo import get_all_user_expenses, create_user_expense
 from datetime import datetime
 
 
 
 
 def expense_statistics(user_id):
-    expenses = get_all_expenses(user_id)
+    expenses = get_all_user_expenses(user_id)
     print(expenses)
     if not expenses:
         return {
