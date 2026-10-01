@@ -35,7 +35,7 @@ def expense_statistics(user_id):
 
 
 def get_expense_by_id(id, user_id):
-    expenses = get_all_expenses(user_id)
+    expenses = get_all_user_expenses(user_id)
     for expense in expenses:
 
         if expense.id == id:
@@ -45,7 +45,7 @@ def get_expense_by_id(id, user_id):
 
         
 def add_expense(user_id,category, item, date, amount):
-    create_expense(user_id,category, item, amount,date)
+    create_user_expense(user_id,category, item, amount,date)
     
     
 def date_convert(date):

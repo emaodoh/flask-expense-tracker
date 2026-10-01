@@ -5,7 +5,7 @@ from .validator import validate_registration
 from . import expense_repo 
 from .user_repo import create_user,validate_user,get_all_user_expenses
 from .decorators import login_required
-from .services import get_expense_by_id
+
 
 main = Blueprint("main", __name__)
 
@@ -27,7 +27,7 @@ def home():
 @main.route("/edit_expense/<int:id>", methods=["GET", "POST"])
 @login_required
 def edit_expense(id):
-    expense = get_expense_by_id(id,session["user_id"])
+    expense = services.get_expense_by_id(id,session["user_id"])
     if expense is None:
         abort(404)
         

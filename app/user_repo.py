@@ -2,7 +2,7 @@ from .models import User
 from .extensions import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import Expense
-
+from . import services
 
 def create_user(username, email, password):
     hashed_password = generate_password_hash(password)
