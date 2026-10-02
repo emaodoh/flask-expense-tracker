@@ -1,19 +1,25 @@
 from flask import Flask, render_template
 from config import DevelopmentConfig
 from .extensions import db,migrate
-from .models import Expense
+from . import models
+import os
+import sys
 
-
-def create_app():
+def create_app(config=None):
 
     app = Flask(
     __name__,
     template_folder="../templates",
     static_folder="../static"
 )
-
     app.config.from_object(DevelopmentConfig)
 
+
+    if config:
+        app.config.update(config)
+
+    
+    print("Active DB URI", app.config["SQLALCHEMY_DATABASE_URI"])
     @app.errorhandler(404)
     def page_not_found(error):
         return render_template("404.html"), 404

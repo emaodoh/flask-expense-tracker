@@ -1,11 +1,11 @@
 
 from .models import Expense
 from .extensions import db
-from . import services
+from . import validator
 
 
 def create_expense(user_id,category,item,amount,date):
-    expense = Expense(user_id=user_id,category=category,item=item,amount=amount,expense_date=services.date_convert(date))
+    expense = Expense(user_id=user_id,category=category,item=item,amount=amount,expense_date=validator.date_convert(date))
 
     db.session.add(expense)
     db.session.commit()
@@ -18,11 +18,11 @@ def get_all_expenses():
 
 
 def edit_expense(user_id, category, item, expense_date, price,expense_id):
-    expense = services.get_expense_by_id(expense_id, user_id)
+    expense = get_expense_by_id(expense_id, user_id)
 
     expense.item = item
     expense.category = category
-    expense.expense_date = services.date_convert(expense_date)
+    expense.expense_date = validator.date_convert(expense_date)
     expense.amount = price
 
     db.session.commit()
@@ -35,7 +35,10 @@ def get_expense_by_id(expense_id, user_id):
 
 
 def delete_expense(expense_id, user_id):
-    expense = services.get_expense_by_id(expense_id,user_id)
+    expense = get_expense_by_id(expense_id,user_id)
     db.session.delete(expense)
     db.session.commit()
 
+      
+def add_expenses(user_id,category, item, date, amount):
+    create_expense(user_id,category, item, amount,date)

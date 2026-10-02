@@ -1,11 +1,11 @@
 from flask import  Blueprint, render_template, request, redirect, flash, url_for, abort, session
 from .models import Expense
-from . import services
+from .services import expense_statistics
 from .validator import validate_registration
 from . import expense_repo 
 from .user_repo import create_user,validate_user,get_all_user_expenses
 from .decorators import login_required
-
+from .expense_repo import get_expense_by_id, add_expenses
 
 main = Blueprint("main", __name__)
 
@@ -16,7 +16,7 @@ main = Blueprint("main", __name__)
 def home():
     
     expenses = get_all_user_expenses(session["user_id"])
-    statistics = services.expense_statistics(session["user_id"])
+    statistics = expense_statistics(session["user_id"])
 
     return render_template(
         "index.html",
@@ -27,7 +27,7 @@ def home():
 @main.route("/edit_expense/<int:id>", methods=["GET", "POST"])
 @login_required
 def edit_expense(id):
-    expense = services.get_expense_by_id(id,session["user_id"])
+    expense = get_expense_by_id(id,session["user_id"])
     if expense is None:
         abort(404)
         
@@ -80,7 +80,7 @@ def add_expense():
         date = str(request.form["date"])
         
 
-        services.add_expense(session["user_id"],category, item, date, price)
+        add_expenses(session["user_id"],category, item, date, price)
 
         
 

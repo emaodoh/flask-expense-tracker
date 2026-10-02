@@ -2,7 +2,7 @@ from .models import User
 from .extensions import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import Expense
-from . import services
+
 
 def create_user(username, email, password):
     hashed_password = generate_password_hash(password)
@@ -34,7 +34,7 @@ def validate_user(login,password):
 
     return None
 
-    
+
 def get_all_user_expenses(user_id):
     expenses = Expense.query.filter_by(user_id=user_id).all()
     return expenses
@@ -50,7 +50,7 @@ def get_expense_by_user_id(expense_id,user_id):
 
 
 def create_user_expense(user_id,category,item,amount,date):
-    expense = Expense(user_id=user_id,category=category,item=item,amount=amount,expense_date=services.date_convert(date))
+    expense = Expense(user_id=user_id,category=category,item=item,amount=amount,expense_date=validator.date_convert(date))
 
     db.session.add(expense)
     db.session.commit()

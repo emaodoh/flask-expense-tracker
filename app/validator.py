@@ -1,4 +1,5 @@
 from .user_repo import get_user_by_email, get_user_by_username
+from datetime import datetime
 
 
 def validate_registration(
@@ -36,3 +37,11 @@ def validate_registration(
         return "Email already exists."
 
     return None
+
+
+
+def date_convert(date):
+    date_string = date
+
+    pure_date = datetime.strptime(date_string, "%Y-%m-%d").date()
+    return pure_date
