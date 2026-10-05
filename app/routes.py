@@ -58,7 +58,7 @@ def edit_expense(id):
 
     return "Expense not found"
 
-@main.route("/delete_expense/<int:id>")
+@main.route("/delete_expense/<int:id>", methods=["DELETE","GET"])
 @login_required
 def delete_expense(id):
     

@@ -20,10 +20,11 @@ def get_all_expenses():
 def edit_expense(user_id, category, item, expense_date, price,expense_id):
     expense = get_expense_by_id(expense_id, user_id)
 
-    expense.item = item
+    
     expense.category = category
     expense.expense_date = validator.date_convert(expense_date)
     expense.amount = price
+    expense.item = item
 
     db.session.commit()
 
