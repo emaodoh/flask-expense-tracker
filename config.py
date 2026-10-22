@@ -1,22 +1,24 @@
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent
-db_path = BASE_DIR/"expenses.db"
+
 
 class Config:
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = os.getenv(
+        "DATABASE_URL",
+        f"sqlite:///{BASE_DIR / 'expenses.db'}"
+    )
 
-    SECRET_KEY = "your-secret-key"
-    
 
 class DevelopmentConfig(Config):
-
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = f"sqlite:///{db_path}"
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class ProductionConfig(Config):
-
     DEBUG = False
-
-    
