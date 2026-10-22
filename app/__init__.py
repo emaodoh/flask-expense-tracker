@@ -19,7 +19,7 @@ def create_app(config=None):
         app.config.update(config)
 
     
-    print("Active DB URI", app.config["SQLALCHEMY_DATABASE_URI"])
+    # print("Active DB URI", app.config["SQLALCHEMY_DATABASE_URI"])
     @app.errorhandler(404)
     def page_not_found(error):
         return render_template("404.html"), 404

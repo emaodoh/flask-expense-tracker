@@ -7,7 +7,6 @@ from .user_repo import get_all_user_expenses
 
 def expense_statistics(user_id):
     expenses = get_all_user_expenses(user_id)
-    print(expenses)
     if not expenses:
         return {
             "total": 0,
