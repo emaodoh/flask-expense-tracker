@@ -47,6 +47,8 @@
         </p>
 
         <form method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
 
             <div class="form-group">
                 <label>Username</label>
@@ -108,6 +110,7 @@
 
 {% endwith %}
         </form>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
         <p class="login-link">
             Already have an account?

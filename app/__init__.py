@@ -1,9 +1,10 @@
 from flask import Flask, render_template
 from config import DevelopmentConfig
-from .extensions import db,migrate
+from .extensions import db,migrate,csrf
 from . import models
 import os
 import sys
+
 
 def create_app(config=None):
 
@@ -12,6 +13,8 @@ def create_app(config=None):
     template_folder="../templates",
     static_folder="../static"
 )
+
+
     app.config.from_object(DevelopmentConfig)
 
 
@@ -32,6 +35,9 @@ def create_app(config=None):
 
     db.init_app(app)
     migrate.init_app(app, db)
+    csrf.init_app(app)
+
+
 
     from .routes import main
     from .api import api

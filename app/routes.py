@@ -39,10 +39,10 @@ def edit_expense(id):
 
         if request.method == "POST":
                 
-            expense_date = request.form["date"]
-            category = request.form["category"]
+            expense_date = request.form.get("date")
+            category = request.form.get("category")
             amount = float (request.form["price"])
-            item = request.form["item"]
+            item = request.form.get("item")
             expense_repo.edit_expense(session["user_id"],category, item, expense_date, amount,id)
             
         
@@ -58,7 +58,7 @@ def edit_expense(id):
 
     return "Expense not found"
 
-@main.route("/delete_expense/<int:id>", methods=["DELETE","GET"])
+@main.route("/delete_expense/<int:id>", methods=["POST"])
 @login_required
 def delete_expense(id):
     
@@ -138,7 +138,8 @@ def login():
 
     return render_template("login.html")
 
-@main.route("/logout")
+@main.route("/logout", methods=["POST"])
+@login_required
 def logout():
 
     session.pop("user_id", None)
@@ -146,5 +147,4 @@ def logout():
     flash("You have been logged out successfully.", "success")
 
     return redirect(url_for("main.login"))
-
     

@@ -4,7 +4,7 @@ from flask import jsonify, request, session
 from .validator import validate_expense_data
 from ..user_repo import get_all_user_expenses
 
-@api.route("/expenses/", methods=["GET"])
+@api.route("/expenses", methods=["GET"])
 def get_expenses_api():
     if "user_id" not in session:
         return jsonify({"error": "Unauthorized"}), 401
@@ -37,8 +37,8 @@ def create_expense_api():
     "message": "Expense added successfully."
 }), 201
 
-@api.route("/expenses/<int:id>")
-def get_expesnse_by_id_api(id):
+@api.route("/expenses/<int:id>", methods=["GET"])
+def get_expense_by_id_api(id):
     if "user_id" not in session:
         return jsonify({"error": "Unauthorized"}), 401
 

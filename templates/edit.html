@@ -4,7 +4,8 @@
 <h1>Edit Expense</h1>
 
 <form method="POST" class="expense-form">
-
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  
     <label>Category</label><br>
     <input
         type="text"

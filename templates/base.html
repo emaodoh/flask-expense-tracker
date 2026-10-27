@@ -35,11 +35,23 @@
             <a href="{{ url_for('main.add_expense') }}">
                 Add Expense
             </a>
+        <form 
+            class="logout-form"
+            method="POST"
+            action="{{ url_for('main.logout') }}"
+        >
 
-            <a href="{{url_for('main.logout')}}">
+            <input 
+                type="hidden" 
+                name="csrf_token" 
+                value="{{ csrf_token() }}"
+            >
+
+            <button type="submit" class="logout-link">
                 Logout
-            </a>
+            </button>
 
+        </form>
         </div>
 
     </nav>

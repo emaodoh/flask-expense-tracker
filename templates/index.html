@@ -69,11 +69,23 @@
                     Edit
                 </a>
 
-                <a
-                    class="delete"
-                    href="{{ url_for('main.delete_expense', id=expense.id) }}">
-                    Delete
-                </a>
+       <form 
+        class="delete-form" 
+        method="POST" 
+        action="{{ url_for('main.delete_expense', id=expense.id) }}"
+        >
+
+        <input 
+            type="hidden" 
+            name="csrf_token" 
+            value="{{ csrf_token() }}"
+        >
+
+        <button class="delete-link" type="submit">
+            Delete
+        </button>
+
+        </form>
 
             </div>
 
